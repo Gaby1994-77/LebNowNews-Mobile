@@ -1,6 +1,13 @@
 import React from 'react';
-import {View, Text, Image, TouchableOpacity} from 'react-native';
+import {View, Text, Image, TouchableOpacity, Linking} from 'react-native';
 import styles from './AboutUsScreen.Styles';
+
+const handlePress = () => {
+  const websiteURL = 'https://github.com/Gaby1994-77/LebNowNews-Website.git';
+  Linking.openURL(websiteURL).catch(err =>
+    console.error('Failed to open link:', err),
+  );
+};
 const AboutUsScreen = () => {
   return (
     <View style={styles.card}>
@@ -25,7 +32,7 @@ const AboutUsScreen = () => {
           LebNow is more than just a news app; it's your daily window to the
           world. Join us on our journey to enlighten and inform.
         </Text>
-        <TouchableOpacity style={styles.button}>
+        <TouchableOpacity style={styles.button} onPress={handlePress}>
           <Text style={styles.buttonText}>Visit Our Website</Text>
         </TouchableOpacity>
       </View>
