@@ -9,6 +9,10 @@ PS: Username are Case sensitive !
 Username: Gaby, Password: 77
 Username: Samir, Password: 123
 
+
+in AboutUs page by clicking the visit website button : it navigate to the website in github repository where you were able to download website project
+github link : https://github.com/Gaby1994-77/LebNowNews-Website.git
+
 ---
 
 About LebNow
