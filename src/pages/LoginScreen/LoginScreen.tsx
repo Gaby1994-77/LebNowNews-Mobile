@@ -14,8 +14,8 @@ import styles from './LoginScreen.Styles';
 import Toast from 'react-native-toast-message';
 
 const LoginScreen = () => {
-  const [email, setEmail] = useState('Samir');
-  const [password, setPassword] = useState('123');
+  const [email, setEmail] = useState('');
+  const [password, setPassword] = useState('');
   const dispatch = useDispatch();
   const navigation = useNavigation();
   const loginUser = async (email: string, password: string) => {
@@ -43,8 +43,6 @@ const LoginScreen = () => {
       await AsyncStorage.setItem('refreshToken', refreshToken);
       dispatch(setToken(accessToken));
       dispatch(setRefreshToken(refreshToken));
-      console.log('token access', accessToken);
-      console.log('token refreshed', refreshToken);
       Toast.show({
         type: 'success',
         text2: 'logged in successfully 👋',
