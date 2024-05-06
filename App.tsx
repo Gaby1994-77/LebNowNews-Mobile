@@ -1,9 +1,10 @@
 import React, {useEffect} from 'react';
 import {Provider} from 'react-redux';
-import store from './src/redux/store';
+import store, {persistor} from './src/redux/store';
 import MainNavigation from './src/navigation/MainNavigation';
 import Toast from 'react-native-toast-message';
 import BootSplash from 'react-native-bootsplash';
+import {PersistGate} from 'redux-persist/integration/react';
 
 const App = () => {
   useEffect(() => {
@@ -14,7 +15,9 @@ const App = () => {
   }, []);
   return (
     <Provider store={store}>
-      <MainNavigation />
+      <PersistGate loading={null} persistor={persistor}>
+        <MainNavigation />
+      </PersistGate>
       <Toast />
     </Provider>
   );
