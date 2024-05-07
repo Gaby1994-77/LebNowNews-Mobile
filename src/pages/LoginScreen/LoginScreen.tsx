@@ -12,6 +12,7 @@ import {setRefreshToken, setToken} from '../../redux/authActions';
 import {useNavigation} from '@react-navigation/native';
 import styles from './LoginScreen.Styles';
 import Toast from 'react-native-toast-message';
+import {baseUrl} from '../../utilities/api';
 
 const LoginScreen = () => {
   const [email, setEmail] = useState('');
@@ -20,20 +21,17 @@ const LoginScreen = () => {
   const navigation = useNavigation();
   const loginUser = async (email: string, password: string) => {
     try {
-      const response = await fetch(
-        'https://backend-practice.euriskomobility.me/login',
-        {
-          method: 'POST',
-          headers: {
-            'Content-Type': 'application/json',
-          },
-          body: JSON.stringify({
-            email,
-            password,
-            token_expires_in: '1m',
-          }),
+      const response = await fetch(`${baseUrl}login`, {
+        method: 'POST',
+        headers: {
+          'Content-Type': 'application/json',
         },
-      );
+        body: JSON.stringify({
+          email,
+          password,
+          token_expires_in: '1m',
+        }),
+      });
       const responseData = await response.json();
       if (!response.ok) {
         throw new Error(responseData.message || 'Login failed');
