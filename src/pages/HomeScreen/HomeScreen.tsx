@@ -14,6 +14,7 @@ import {RootState} from '../../redux/store';
 import styles from '../HomeScreen/HomeScreen.Styles';
 import PostItem from '../../components/organisms/PostItem';
 import {setToken} from '../../redux/authActions';
+import {baseUrl} from '../../utilities/api';
 
 interface Post {
   _id: string;
@@ -60,16 +61,13 @@ const HomeScreen: React.FC = () => {
   const fetchData = async () => {
     setRefreshing(true);
     try {
-      const response = await axios.get(
-        'https://backend-practice.euriskomobility.me/posts',
-        {
-          headers: {Authorization: `Bearer ${token}`},
-          params: {
-            page: pagination.currentPage,
-            pageSize: 10,
-          },
+      const response = await axios.get(`${baseUrl}posts`, {
+        headers: {Authorization: `Bearer ${token}`},
+        params: {
+          page: pagination.currentPage,
+          pageSize: 10,
         },
-      );
+      });
       setPosts(response.data.results);
       setPagination({
         currentPage: response.data.pagination.currentPage,
@@ -97,10 +95,9 @@ const HomeScreen: React.FC = () => {
 
   const refreshAccessToken = async () => {
     try {
-      const response = await axios.post(
-        'https://backend-practice.euriskomobility.me/refresh-token',
-        {refreshToken},
-      );
+      const response = await axios.post(`${baseUrl}refresh-token`, {
+        refreshToken,
+      });
       const newAccessToken = response.data.accessToken;
       console.log('Token refreshed successfully:', newAccessToken);
       dispatch(setToken(newAccessToken));
