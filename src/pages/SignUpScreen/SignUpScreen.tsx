@@ -11,6 +11,7 @@ import AsyncStorage from '@react-native-async-storage/async-storage';
 import {useDispatch} from 'react-redux';
 import {setToken} from '../../redux/authActions';
 import styles from './SignUpScreen.Styles';
+import {baseUrl} from '../../utilities/api';
 
 const RegisterScreen = () => {
   const [email, setEmail] = useState('');
@@ -19,20 +20,17 @@ const RegisterScreen = () => {
   const dispatch = useDispatch();
   const registerUser = async (email: string, password: string) => {
     try {
-      const response = await fetch(
-        'https://backend-practice.euriskomobility.me/signup',
-        {
-          method: 'POST',
-          headers: {
-            'Content-Type': 'application/json',
-          },
-          body: JSON.stringify({
-            email,
-            password,
-            token_expires_in: '15m',
-          }),
+      const response = await fetch(`${baseUrl}signup`, {
+        method: 'POST',
+        headers: {
+          'Content-Type': 'application/json',
         },
-      );
+        body: JSON.stringify({
+          email,
+          password,
+          token_expires_in: '15m',
+        }),
+      });
       const responseData = await response.json();
       if (!response.ok) {
         throw new Error(responseData.message || 'Registration failed');
